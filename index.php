@@ -1,0 +1,89 @@
+<?php
+    require 'controlador_contatinhos.php';
+    $osContatinhos = pegarContatinhos();
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Agenda</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+
+	
+	<div class="container" style="margin-top: 30px;">
+
+		<h3>MINHA AGENDA DE CONTATOS</h3>
+		<br />
+		
+		<!-- CADASTRO-->
+		<div class="row">
+			<div class="col-md-12">
+				<form class="form-inline" method="post" action="controlador_contatinhos.php?acao=cadastrar">
+				  
+				  <!--nome-->
+				  <div class="form-group">
+				    <label for="nome">Nome</label>
+				    <input name="nome" type="text" class="form-control" id="nome">
+				  </div>
+				  
+				  <!--email-->
+				  <div class="form-group">
+				    <label for="email">Email</label>
+				    <input name ="email" type="email" class="form-control" id="email">
+				  </div>
+
+				  <!--telefone-->
+				  <div class="form-group">
+				    <label for="telefone">Telefone</label>
+				    <input name="telefone" type="text" class="form-control" id="telefone">
+				  </div>
+				  
+				  <button type="submit" class="btn btn-default">CADASTRAR</button>
+				
+				</form>
+			</div>
+		</div>
+
+		<br />
+		
+		<!--CONTATOS-->
+		<div class="row">
+			<div class="col-md-12">
+
+				<!-- Conteúdo -->
+				<table class="table"> 
+					<thead> 
+						<tr> 
+							<th>#</th> 
+							<th>Nome</th> 
+							<th>Email</th> 
+							<th>Telefone</th> 
+							<th>Ações</th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<!-- repetir -->
+                        <?php foreach($osContatinhos as $contato): ?>
+						<tr> 
+							<th scope="row"><?= $contato['id'] ?></th> 
+							<td><?= $contato['nome'] ?></td> 
+							<td><?= $contato['email'] ?></td> 
+							<td><?= $contato['telefone'] ?></td>
+                            <td>                    
+                                <a href="controlador_contatinhos.php?acao=excluir&id=<?= $contato['id'] ?>"> Excluir </a> 
+                                <a href="editContatinhos.php?acao=editar&id=<?= $contato['id']?>">Editar</a>                           
+                            </td>   
+						</tr>
+                        <?php endforeach; ?>
+					</tbody> 
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
